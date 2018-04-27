@@ -4,14 +4,12 @@
 int main (int argc, char * argv[]) {
     double x, pi, step, sum=0.0;
     int i;
-    
+    long num_steps = 1000000000; 
     step = 1./(double)num_steps;
     #pragma omp parallel for private(x) reduction(+:sum)
-    {
-        for (i=0; i<num_steps; i++) {
+    for (i=0; i<num_steps; i++) {
         x = (i + .5)*step;
         sum = sum + 1.0/(1.+ x*x);
-        }
     }
     pi = 4.0*sum*step;
     std::cout << pi << std::endl;
