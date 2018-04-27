@@ -9,15 +9,15 @@ int main (int argc, char * argv[]) {
     step = 1./(double)num_steps;
     #pragma omp parallel for private(x) reduction(+:sum)
     for (i=0; i<num_steps; i++) {
-        tid = omp_get_thread_num();
-        std::cout << "This thread is NO." << tid << std::endl;
-        x = (i + .5)*step;
+//        tid = omp_get_thread_num();
+//        std::cout << "This thread is NO." << tid << std::endl;
+        x = (i + .001)*step;
         sum = sum + 1.0/(1.+ x*x);
 
-        if (tid == 0) {
-            nthread = omp_get_num_thread();
-            std::cout << "Total threads: " << nthread << std::endl;
-        }
+//        if (tid == 0) {
+//            nthread = omp_get_num_threads();
+//            std::cout << "Total threads: " << nthread << std::endl;
+//        }
     }
     pi = 4.0*sum*step;
     std::cout << pi << std::endl;
