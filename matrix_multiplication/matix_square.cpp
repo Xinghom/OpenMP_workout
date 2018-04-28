@@ -74,7 +74,7 @@ int main(){
             row[col] = sum;
         }
         result.push_back(row);
-        cout << to_string(row_1) + "/" + to_string(m) << endl;
+        cout << row_1 << "/" << m << endl;
     }
     cout << "square done." << endl;
     try {
