@@ -7,7 +7,7 @@
 
 #define ROW_NUM 100
 #define COL_NUM 100
-#define RANDOM_NUM_MAX 1
+#define RANDOM_NUM_MAX 5
 #define RANDOM_NUM_LOWER_BOUND 1
 
 using namespace std;
@@ -52,11 +52,10 @@ int main(){
         for(int j = 0; j < n; j++) {
             row[j] = 0;
         }
-        matrix.push_back(row);
+        result.push_back(row);
     }
     cout << "Matrix Ready" << endl;
     cout << "Matrix Squaring ..." << endl;
-    
     
     for (int row_1 = 0; row_1 < m; row_1++) {
         for(int col = 0; col < n; col++) {
