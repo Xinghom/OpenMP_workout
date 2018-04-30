@@ -42,8 +42,7 @@ int main(){
     Mat result;
     srand(time(0));
 
-    #pragma omp parallel shared(matrix, result, row, numThreads, chunk) \
-                        private(m,n,tID,i,j,row_1,col,row_2)
+    #pragma omp parallel shared(matrix, result, row, numThreads, chunk) private(m,n,tID,i,j,row_1,col,row_2)
     {
         tID = omp_get_thread_num();
         if (tID == 0) {
@@ -104,7 +103,7 @@ int main(){
         // cout << "Thread No." << tID << " starts Multiplying!" << endl;
         #pragma omp for schedule (static, chunk)
         for (row_1 = 0; row_1 < m; row_1++) {
-            // cout << "thread " << tID << " is doing row " << row_1 << endl;
+            cout << "thread " << tID << " is doing row " << row_1 << endl;
             for (col = 0; col < n; col++) {
                 for (row_2 = 0; row_2 < m; row_2++) {
                     result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
