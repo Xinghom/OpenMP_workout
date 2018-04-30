@@ -50,9 +50,8 @@ int main(){
             cout << "Total Threads Number: " << numThreads << endl;
         }
         #pragma omp barrier
-        #pragma omp master
+        #pragma omp single
         {
-            cout << "I'm worker thread NO." << tID << endl;
             cout << "Matrix generating...\n";
         }
         #pragma omp for schedule (static, chunk)
@@ -75,7 +74,7 @@ int main(){
                 }
                 result.push_back(row);
             }
-        #pragma omp master
+        #pragma omp single
         {
             cout << "Matrix Ready" << endl;
             cout << "Again, I'm worker thread NO." << tID << endl;
