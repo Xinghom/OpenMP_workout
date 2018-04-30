@@ -38,6 +38,7 @@ int main(){
     // rather than with push_back.
     Vec row(n);
     Mat matrix;
+    Mat result;
     srand(time(0));
 
     cout << "Matrix generating...\n";
@@ -47,22 +48,21 @@ int main(){
         }
         matrix.push_back(row);
     }
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++) {
+            row[j] = 0;
+        }
+        matrix.push_back(row);
+    }
     cout << "Matrix Ready" << endl;
     cout << "Matrix Squaring ..." << endl;
     
-    Mat result;
-    #pragma omp parallel shared(result) private(matrix, m, n)
-    {
-        #pragma omp for reduction(+:sum)
-        for (int row_1 = 0; row_1 < m; row_1++) {
-            for(int col = 0; col < n; col++) {
-                double sum = 0;
-                for (int row_2 = 0; row_2 < m; row_2++) {
-                    sum += matrix[row_1][row_2] * matrix[row_2][col];
-                }
-                row[col] = sum;
+    
+    for (int row_1 = 0; row_1 < m; row_1++) {
+        for(int col = 0; col < n; col++) {
+            for (int row_2 = 0; row_2 < m; row_2++) {
+                result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
             }
-            result.push_back(row);
         }
     }
     cout << "Square done." << endl;
