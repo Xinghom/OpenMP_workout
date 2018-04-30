@@ -48,12 +48,9 @@ int main(){
         if (tID == 0) {
             numThreads = omp_get_num_threads();
             cout << "Total Threads Number: " << numThreads << endl;
+	    cout << "Matrix generating...\n";
         }
-        #pragma omp barrier
-        #pragma omp single
-        {
-            cout << "Matrix generating...\n";
-        }
+            
         #pragma omp for schedule (static, chunk)
             for(i = 0; i < m; i++){
                 cout << "test 1 outer" << endl;
@@ -87,19 +84,7 @@ int main(){
             } catch (char const * msg) {
                 cout << msg << endl;
             }
-        }
-        #pragma omp single
-        {
-            try {
-                printM(matrix);
-                cout << "=================" << endl;
-                printM(result);
-                    cout << "================" << endl;
-            } catch (char const * msg) {
-                cout << msg << endl;
-            }
-        }
-        // cout << "Thread No." << tID << " starts Multiplying!" << endl;
+	}
         #pragma omp for schedule (static, chunk)
         for (row_1 = 0; row_1 < m; row_1++) {
             cout << "thread " << tID << " is doing row " << row_1 << endl;
