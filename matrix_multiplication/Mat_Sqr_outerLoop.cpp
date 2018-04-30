@@ -50,6 +50,7 @@ int main(){
             numThreads = omp_get_num_threads();
             cout << "Total Threads Number: " << numThreads << endl;
         }
+        #pragma omp barrier
         #pragma omp single
         {
             cout << "I'm worker thread NO." << tID << endl;
@@ -73,6 +74,7 @@ int main(){
         cout << "Thread No." << tID << " starts Multiplying!" << endl;
         #pragma omp for schedule (static, chunk)
         for (int row_1 = 0; row_1 < m; row_1++) {
+            cout << "thread " << tID << " is doing row " << row_1 << endl;
             for (int col = 0; col < n; col++) {
                 for (int row_2 = 0; row_2 < m; row_2++) {
                     result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
