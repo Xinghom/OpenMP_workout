@@ -85,7 +85,7 @@ int main(){
     cout << "Square done." << endl;
     try {
         printM(result);
-    } catch (char * msg) {
+    } catch (char const* msg) {
         cout << msg << endl;
     }
     return 0;
