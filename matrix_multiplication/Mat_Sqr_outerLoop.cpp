@@ -26,7 +26,7 @@ void printM(Mat m){
         for (int j = 0; j < col; j++) {
             cout << m[i][j] << " ";
         }
-        cout << "--\n";
+        cout << " | \n";
     }
 }
 
@@ -48,7 +48,7 @@ int main(){
         tID = omp_get_thread_num();
         if (tID == 0) {
             numThreads = omp_get_num_threads();
-            cout << "Threads Number: " << numThreads << endl;
+            cout << "Total Threads Number: " << numThreads << endl;
         }
         #pragma omp single
         {
@@ -70,6 +70,7 @@ int main(){
             cout << "Again, I'm worker thread NO." << tID << endl;
             cout << "Matrix Squaring ..." << endl;
         }
+        cout << "Thread No." << tID << " starts Multiplying!" << endl;
         #pragma omp for schedule (static, chunk)
         for (int row_1 = 0; row_1 < m; row_1++) {
             for (int col = 0; col < n; col++) {
@@ -85,7 +86,6 @@ int main(){
     } catch (char * msg) {
         cout << msg << endl;
     }
-    
     return 0;
 }
 
