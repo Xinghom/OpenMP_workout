@@ -43,7 +43,7 @@ int main(){
     srand(time(0));
 
     #pragma omp parallel shared(matrix, result, row, numThreads, chunk) \
-                        private(m,n,tID,numThreads)
+                        private(m,n,tID)
     {
         tID = omp_get_thread_num();
         if (tID == 0) {
