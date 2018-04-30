@@ -71,10 +71,10 @@ int main(){
             cout << "Again, I'm worker thread NO." << tID << endl;
             cout << "Matrix Squaring ..." << endl;
         }
-        cout << "Thread No." << tID << " starts Multiplying!" << endl;
+        // cout << "Thread No." << tID << " starts Multiplying!" << endl;
         #pragma omp for schedule (static, chunk)
         for (int row_1 = 0; row_1 < m; row_1++) {
-            cout << "thread " << tID << " is doing row " << row_1 << endl;
+            // cout << "thread " << tID << " is doing row " << row_1 << endl;
             for (int col = 0; col < n; col++) {
                 for (int row_2 = 0; row_2 < m; row_2++) {
                     result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
@@ -83,6 +83,8 @@ int main(){
         }
     }
     cout << "Square done." << endl;
+    cout << "size m: " << result.size() << ", size n: " << result[1].size() << endl;
+    // cout << result[0][0] << endl;
     try {
         printM(result);
     } catch (char const* msg) {
