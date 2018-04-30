@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <omp.h>
 
 #define ROW_NUM 1600
 #define COL_NUM 1600
@@ -78,11 +79,11 @@ int main(){
         cout << row_1 << "/" << m << endl;
     }
     cout << "square done." << endl;
-    try {
-        printM(result);
-    } catch (char * msg) {
-        cout << msg << endl;
-    }
+    // try {
+    //     printM(result);
+    // } catch (char * msg) {
+    //     cout << msg << endl;
+    // }
     
     return 0;
 }
