@@ -33,6 +33,7 @@ void printM(Mat m){
 
 int main(){
     int m = ROW_NUM, n = COL_NUM;
+    int tID, numThreads, chunk = 10;
     // Allocate space for the vectors
     // If we initialize the vector length in this way, we can then assign individual elements directly, as in row[j] =
     // rather than with push_back.
@@ -41,26 +42,40 @@ int main(){
     Mat result;
     srand(time(0));
 
-    cout << "Matrix generating...\n";
-    for(int i = 0; i < m; i++){
-        for(int j = 0; j < n; j++) {
-            row[j] = rand() % RANDOM_NUM_MAX + RANDOM_NUM_LOWER_BOUND;
+    #pragma omp parallel shared(matrix, result, row, numThreads, chunk) \
+                        private(m,n,tID,numThreads)
+    {
+        tID = omp_get_thread_num();
+        if (tID == 0) {
+            numThreads = omp_get_num_threads();
+            cout << "Threads Number: " << numThreads << endl;
         }
-        matrix.push_back(row);
-    }
-    for(int i = 0; i < m; i++){
-        for(int j = 0; j < n; j++) {
-            row[j] = 0;
+        #pragma omp single
+        {
+            cout << "I'm worker thread NO." << tID << endl;
+            cout << "Matrix generating...\n";
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++) {
+                    row[j] = rand() % RANDOM_NUM_MAX + RANDOM_NUM_LOWER_BOUND;
+                }
+                matrix.push_back(row);
+            }
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++) {
+                    row[j] = 0;
+                }
+                result.push_back(row);
+            }
+            cout << "Matrix Ready" << endl;
+            cout << "Again, I'm worker thread NO." << tID << endl;
+            cout << "Matrix Squaring ..." << endl;
         }
-        result.push_back(row);
-    }
-    cout << "Matrix Ready" << endl;
-    cout << "Matrix Squaring ..." << endl;
-    
-    for (int row_1 = 0; row_1 < m; row_1++) {
-        for(int col = 0; col < n; col++) {
-            for (int row_2 = 0; row_2 < m; row_2++) {
-                result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
+        #pragma omp for schedule (static, chunk)
+        for (int row_1 = 0; row_1 < m; row_1++) {
+            for (int col = 0; col < n; col++) {
+                for (int row_2 = 0; row_2 < m; row_2++) {
+                    result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
+                }
             }
         }
     }
