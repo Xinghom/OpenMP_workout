@@ -83,7 +83,7 @@ int main(){
         }
     }
     cout << "Square done." << endl;
-    cout << "size m: " << result.size() << ", size n: " << result[1].size() << endl;
+    cout << "size m: " << result.size() << endl;
     // cout << result[0][0] << endl;
     try {
         printM(result);
