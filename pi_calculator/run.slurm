@@ -1,5 +1,6 @@
 #!/bin/bash -l
 
+#SBATCH -J Pi_calculate_with_diff_Threads_By_OMP_for_Xinghang
 #SBATCH -q premium
 #SBATCH -N 1
 #SBATCH -t 00:30:00
