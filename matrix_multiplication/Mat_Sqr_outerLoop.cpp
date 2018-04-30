@@ -53,7 +53,7 @@ int main(){
     Mat result;
     #pragma omp parallel shared(result) private(matrix, m, n)
     {
-        #pragma omp for shared(result) private(matrix, m, n) reduction(+:sum)
+        #pragma omp for reduction(+:sum)
         for (int row_1 = 0; row_1 < m; row_1++) {
             for(int col = 0; col < n; col++) {
                 double sum = 0;
