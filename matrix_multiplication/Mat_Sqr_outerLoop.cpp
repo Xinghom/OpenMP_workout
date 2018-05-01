@@ -4,6 +4,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <omp.h>
+#include <chrono>
 
 #define ROW_NUM 1600
 #define COL_NUM 1600
@@ -57,8 +58,8 @@ int main(){
     }
 
     cout << "Matrix Ready" << endl;
-    cout << "Matrix Squaring ..." << endl;
-
+    cout << "Matrix Squaring ... by OUTER loop parallel processing." << endl;
+    auto start = std::chrono::steady_clock::now( );
     #pragma omp parallel shared (matrix, result, numThreads, chunk) private(tID,row_1,col,row_2)
     {
         tID = omp_get_thread_num();
@@ -68,7 +69,7 @@ int main(){
         }
         #pragma omp for schedule (static, chunk)
         for (row_1 = 0; row_1 < ROW_NUM; row_1++) {
-            cout << "thread " << tID << " is doing row " << row_1 << endl;
+            // cout << "thread " << tID << " is doing row " << row_1 << endl;
             for (col = 0; col < COL_NUM; col++) {
                 for (row_2 = 0; row_2 < ROW_NUM; row_2++) {
                     result[row_1][col] += matrix[row_1][row_2] * matrix[row_2][col];
@@ -76,7 +77,9 @@ int main(){
             }
         }
     }
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now( ) - start );
     cout << "Square done." << endl;
+    cout << "Calculation Time(Outer): " << elapsed.count( ) << " ms" << '\n';
 //    try {
 //        printM(result);
 //    } catch (char const* msg) {
