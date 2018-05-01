@@ -42,7 +42,7 @@ int main(){
     Mat matrix;
     Mat result;
     srand(time(0));
- 
+    cout << "Matrix generating ... " << endl; 
     for(i = 0; i < m; i++){
         for(j = 0; j < n; j++) {
             row[j] = rand() % RANDOM_NUM_MAX + RANDOM_NUM_LOWER_BOUND;

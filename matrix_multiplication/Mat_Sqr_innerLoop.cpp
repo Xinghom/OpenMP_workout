@@ -42,7 +42,7 @@ int main(){
     Mat matrix;
     Mat result;
     srand(time(0));
- 
+    cout << "Matrix generating ... " << endl; 
     for(i = 0; i < m; i++){
         for(j = 0; j < n; j++) {
             row[j] = rand() % RANDOM_NUM_MAX + RANDOM_NUM_LOWER_BOUND;
@@ -79,7 +79,6 @@ int main(){
         }
     }
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now( ) - start );
-    cout << "Square done." << endl;
     cout << "Square done." << endl;
     cout << "Calculation Time(Inner): " << elapsed.count( ) << " ms" << '\n';
 //    try {
