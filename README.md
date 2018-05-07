@@ -4,6 +4,12 @@
 
     This repo is created for practicing parallel processing by OpenMP on Cori SuperComputer.
 
+- # Envirenment
+
+    Machine: Cori - Login Node & Compute Node (Shared Memary Machine) \
+    System： LinuxSUSE \
+    Compiler: Intel Compiler
+    OpenMP version: 3.0+
 
 - # Specific small projects details
 
